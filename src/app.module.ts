@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { ConfigModule } from '@nestjs/config';
 import { ProxyModule } from './proxy/proxy.module';
-import { ProxyService } from './proxy/service/proxy.service';
 
 @Module({
   imports: [
@@ -20,6 +19,6 @@ import { ProxyService } from './proxy/service/proxy.service';
     ProxyModule,
   ],
   controllers: [AppController],
-  providers: [AppService, ProxyService],
+  providers: [AppService],
 })
 export class AppModule {}
