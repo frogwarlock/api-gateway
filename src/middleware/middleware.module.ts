@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { LoggingMiddleware } from './logging/logging.middleware';
 
 @Module({
   imports: [
@@ -10,6 +11,6 @@ import { ThrottlerModule } from '@nestjs/throttler';
       },
     ]),
   ],
-  providers: [],
+  providers: [LoggingMiddleware],
 })
 export class MiddlewareModule {}
