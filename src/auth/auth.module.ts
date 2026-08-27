@@ -18,7 +18,7 @@ import { AuthService } from './service/auth.service';
       inject: [ConfigService],
     }),
   ],
-  controllers: [],
+  controllers: [AuthService],
   providers: [AuthService],
 })
 export class AuthModule {}
