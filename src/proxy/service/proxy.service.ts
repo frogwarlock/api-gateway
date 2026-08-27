@@ -50,15 +50,15 @@ export class ProxyService {
 
   async getServiceHealth(serviceName: keyof typeof serviceConfig) {
     try {
-      const service =  serviceConfig[serviceName];
+      const service = serviceConfig[serviceName];
       const response = await firstValueFrom(
-          this.httpService.get(`${service.url}/health`, {
-            timeout: 3000,
-          })
+        this.httpService.get(`${service.url}/health`, {
+          timeout: 3000,
+        }),
       );
       return { status: 'healthy', data: response.data };
     } catch (error) {
-      return { status: 'unhealthy', error: error.message};
+      return { status: 'unhealthy', error: error.message };
     }
   }
 }

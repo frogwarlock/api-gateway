@@ -24,7 +24,7 @@ export class AppController {
         products: await this.proxyService.getServiceHealth('products'),
         checkout: await this.proxyService.getServiceHealth('checkout'),
         payments: await this.proxyService.getServiceHealth('payments'),
-      }
-    }
+      },
+    };
   }
 }
