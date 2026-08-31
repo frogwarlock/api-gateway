@@ -23,7 +23,7 @@ export class AuthController {
   @ApiOperation({ summary: 'User registration' })
   @ApiResponse({ status: 201, description: 'Registration successful' })
   @ApiResponse({ status: 400, description: 'Invalid registration data' })
-    @Throttle({ short: { limit: 3, ttl: 60000 } })
+  @Throttle({ short: { limit: 3, ttl: 60000 } })
   async register(@Body() registerDto: any) {
     return this.authService.register(registerDto);
   }
