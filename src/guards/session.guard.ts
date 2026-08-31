@@ -4,7 +4,7 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { AuthService } from '../service/auth.service';
+import { AuthService } from '../auth/service/auth.service';
 
 @Injectable()
 export class SessionGuard implements CanActivate {
@@ -13,7 +13,7 @@ export class SessionGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
 
-    const sessionToken = request.headers['x-sesssion-token'];
+    const sessionToken = request.headers['x-session-token'];
 
     if (!sessionToken) {
       throw new UnauthorizedException('Session token required');
