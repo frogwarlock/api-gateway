@@ -18,6 +18,18 @@ export interface UserSession {
   } | null;
 }
 
+export interface AuthResponse {
+  acess_token: string;
+  user: {
+    id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    role: string;
+    status: string;
+  };
+}
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -47,7 +59,7 @@ export class AuthService {
     }
   }
 
-  async login(loginDto: { email: string; password: string }) {
+  async login(loginDto: { email: string; password: string }): Promise<AuthResponse> {
     try {
       const { data } = await firstValueFrom(
         this.httpService.post(`${serviceConfig.users.url}/login`, loginDto, {
@@ -60,7 +72,7 @@ export class AuthService {
     }
   }
 
-  async register(registerDto: RegisterDto) {
+  async register(registerDto: RegisterDto): Promise<AuthResponse> {
     try {
       const { data } = await firstValueFrom(
         this.httpService.post(

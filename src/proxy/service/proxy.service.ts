@@ -2,6 +2,13 @@ import { HttpService } from '@nestjs/axios';
 import { Injectable, Logger } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
 import { serviceConfig } from 'src/config/gateway.config';
+interface UserInfo {
+  userId: string;
+  email: string;
+  role: string;
+}
+
+type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
 @Injectable()
 export class ProxyService {
@@ -13,9 +20,9 @@ export class ProxyService {
     serviceName: keyof typeof serviceConfig,
     method: string,
     path: string,
-    data?: any,
-    headers?: any,
-    userInfo?: any,
+    data?: unknown,
+    headers?: Record<string, string>,
+    userInfo?: UserInfo,
   ) {
     const service = serviceConfig[serviceName];
     const url = `${service.url}${path}`;
@@ -32,7 +39,7 @@ export class ProxyService {
 
       const response = await firstValueFrom(
         this.httpService.request({
-          method: method.toLowerCase() as any,
+          method: method.toLowerCase() as HttpMethod,
           url,
           data,
           headers: enhancedHeaders,
