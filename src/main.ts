@@ -113,7 +113,17 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api', app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+    customSiteTitle: 'Marketplace API Gateway Documentation',
+    customfavIcon: '/favicon.ico',
+    customCss: `
+      .swagger-ui .topbar { background-color: #4CAF50; }
+      .swagger-ui .topbar a { color: #fff; }
+      `,
+  });
 
   const port = process.env.PORT || 3005;
   await app.listen(port);
