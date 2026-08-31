@@ -3,6 +3,7 @@ import { HttpService } from '@nestjs/axios';
 import { JwtService } from '@nestjs/jwt';
 import { firstValueFrom } from 'rxjs';
 import { serviceConfig } from 'src/config/gateway.config';
+import { RegisterDto } from '../dtos/register.dto';
 
 //geralmente fica em outro arquivo para ser mais organizado, mas como é só um exemplo, vou deixar aqui mesmo
 export interface UserSession {
@@ -59,12 +60,14 @@ export class AuthService {
     }
   }
 
-  async register(registerDto: { any }) {
+  async register(registerDto: RegisterDto) {
     try {
       const { data } = await firstValueFrom(
-        this.httpService.post(`${serviceConfig.users.url}/register`, registerDto, {
-          timeout: serviceConfig.users.timeout,
-        }),
+        this.httpService.post(
+          `${serviceConfig.users.url}/auth/register`,
+          registerDto,
+          { timeout: serviceConfig.users.timeout },
+        ),
       );
       return data;
     } catch (error) {
