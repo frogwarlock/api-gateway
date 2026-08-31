@@ -62,9 +62,54 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Marketplace API Gateway')
-    .setDescription('API Gateway for the Marketplace Microservices')
+    .setDescription(
+      [
+        'API Gateway para o sistema de Marketplace com microserviços.',
+        '',
+        '## Serviços incluídos',
+        '- **User Service**: Gerenciamento de usuários, autenticação e autorização.',
+        '- **Product Service**: Catálogo e gerenciamento de produtos.',
+        '- **Checkout Service**: Carrinho e processamento de pedidos.',
+        '- **Payment Service**: Processamento de pagamentos.',
+        '',
+        '## Autenticação',
+        '- Use JWT Bearer tokens para rotas protegidas.',
+        '- Use Session token para validação de sessão.',
+      ].join('\n'),
+    )
     .setVersion('1.0')
-    .addBearerAuth()
+    .setContact(
+      'Zalu learning at Rocketseat',
+      'https://rocketseat.com.br',
+      'example@example.com',
+    )
+    .setLicense('MIT', 'https://opensource.org/licenses/MIT')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Enter JWT token ',
+        in: 'header',
+      },
+      'JWT-auth',
+    )
+    .addApiKey(
+      {
+        type: 'apiKey',
+        name: 'x-session-token',
+        in: 'header',
+        description: 'Session token for user validation',
+      },
+      'Session-auth',
+    )
+    .addTag('Authentication', 'Endpoints para autenticação e autorização')
+    .addTag('Users', 'Endpoints para gestão de usuários')
+    .addTag('Products', 'Endpoints para catálogo de produtos')
+    .addTag('Checkout', 'Endpoints para carrinho e pedidos')
+    .addTag('Payments', 'Endpoints para processamento de pagamentos')
+    .addTag('Health', 'Endpoints para verificação de saúde do sistema')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
